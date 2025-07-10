@@ -1,154 +1,124 @@
 <!DOCTYPE html>
 <html lang="en" class="">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-      }
-    </style>
-    <!-- Inside your <head> -->
-<script>
-  tailwind.config = {
-    darkMode: 'class',
-    theme: {
-      extend: {
-        animation: {
-          blink: 'blink 1s infinite',
-          inflate: 'inflate 0.25s ease-out forwards'
-        },
-        keyframes: {
-          blink: {
-            '0%, 100%': { opacity: '1' },
-            '50%': { opacity: '0.3' }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          animation: {
+            blink: 'blink 1s infinite',
+            inflate: 'inflate 0.25s ease-out forwards'
           },
-          inflate: {
-            '0%': { transform: 'scale(0.8)', opacity: '0' },
-            '100%': { transform: 'scale(1)', opacity: '1' },
+          keyframes: {
+            blink: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0.3' }
+            },
+            inflate: {
+              '0%': { transform: 'scale(0.8)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' },
+            }
           }
         }
       }
     }
-  }
-</script>
+  </script>
+  <title>Chat App</title>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+  <!-- Mobile Header -->
+  <div class="md:hidden flex justify-between items-center p-4 bg-white dark:bg-gray-800 shadow">
+    <button id="menuBtn" class="p-2 bg-gray-100 dark:bg-gray-700 rounded">
+      ☰
+    </button>
+    <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100">Chat App</h2>
+    <button id="modeBtn" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-full">
+      <svg id="sunIcon" class="w-5 h-5 text-gray-800 dark:text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+      </svg>
+      <svg id="moonIcon" class="w-5 h-5 text-gray-800 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </button>
+  </div>
 
-    <title>chat app</title>
-  </head>
-  <body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-    <div class="min-h-screen flex">
-      <div class="w-64 bg-white dark:bg-gray-800 shadow-lg flex flex-col">
-        <header
-          class="flex p-4 border-b border-gray-200 items-center dark:border-gray-700 justify-between"
-        >
-          <div class="">
-            <h2 class="font-bold text-xl text-gray-900 dark:text-gray-100">
-              Chat App
-            </h2>
-            <p id="yourId" class="text-sm mt-3 font-bold text-gray-900 dark:text-gray-500">
-              Your ID : UserAi53456
-            </p>
-          </div>
-          <button
-            id="modeBtn"
-            class="p-2 bg-gray-100 flex justify-center items-center rounded-full dark:bg-gray-700"
-          >
-            <svg
-              id="sunIcon"
-              class="w-5 h-5 text-gray-800 dark:text-white hidden"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-              ></path>
-            </svg>
-            <svg
-              id="moonIcon"
-              class="w-5 h-5 text-gray-800 dark:text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              ></path>
-            </svg>
-          </button>
-        </header>
-
-        <div  class=" p-2 flex-1">
-          <h1 class="font-bold text-xl text-gray-900 dark:text-gray-100 mb-4">
-            Connected Users
-          </h1>
-          <div id="connectedUsers" class="flex-1"></div>
+  <div class="h-screen flex flex-col md:flex-row overflow-hidden">
+    <!-- Sidebar -->
+    <div id="sidebar"
+         class="w-full md:w-64 bg-white dark:bg-gray-800 shadow-lg flex flex-col transform md:translate-x-0 transition-transform duration-300 md:relative absolute z-10 -translate-x-full md:translate-x-0">
+      <header class="flex p-4 border-b border-gray-200 items-center dark:border-gray-700 justify-between">
+        <div>
+          <h2 class="font-bold text-xl text-gray-900 dark:text-gray-100">Chat App</h2>
+          <p id="yourId" class="text-sm mt-3 font-bold text-gray-900 dark:text-gray-500">Your ID : UserAi53456</p>
         </div>
-        <footer
-          id="statusCon"
-          class="flex items-center gap-3 p-4 border-t border-gray-200 dark:border-gray-700"
-        >
-          <div id="icon-2" class="w-3 h-3 rounded-full bg-green-500"></div>
-          <div id="status" class="text-md text-gray-900 dark:text-gray-300">
-            Connected
-          </div>
-        </footer>
+      </header>
+
+      <div class="p-2 flex-1 overflow-y-auto">
+        <h1 class="font-bold text-xl text-gray-900 dark:text-gray-100 mb-4">Connected Users</h1>
+        <div id="connectedUsers" class="flex-1 space-y-2"></div>
       </div>
 
-      <div class="flex-1 flex flex-col h-screen overflow-hidden">
-        <div class="flex flex-col flex-1 overflow-hidden">
-          <div class="flex-1 overflow-hidden">
-            <div
-              id="chatBox"
-              class="flex-1 h-full p-2 overflow-y-auto scrollbar-hide flex flex-col"
-            >
-          </div>
-          </div>
-           <div id="scrollAnchor"></div>
-          <div id="feedback" class="text-xs font-bold p-2 text-gray-600 dark:text-gray-300 invisible animate-blink"></div>
+      <footer id="statusCon"
+              class="flex items-center gap-3 p-4 border-t border-gray-200 dark:border-gray-700">
+        <div id="icon-2" class="w-3 h-3 rounded-full bg-green-500"></div>
+        <div id="status" class="text-md text-gray-900 dark:text-gray-300">Connected</div>
+      </footer>
+    </div>
 
-          <form
-            id="msgForm"
-            class="p-2 bg-white space-x-4 border-t flex items-center bg-gray-100 justify-between border-gray-200 dark:border-gray-700 dark:bg-gray-700"
-          >
-            <input
-              class="flex-1 p-2 bg-white outline-none dark:bg-gray-700 rounded dark:text-gray-100"
-              type="text"
-              id="msgInput"
-              placeholder="Type your message..."
-              autocomplete="off"
-            />
-            <button
-              id="sendBtn"
-              class="bg-blue-500 px-6 py-2 hover:bg-blue-600 rounded text-gray-100 disabled:bg-gray-600"
-            >
-              Send
-            </button>
-          </form>
+    <!-- Chat Content -->
+    <div class="flex-1 flex flex-col h-screen md:h-auto overflow-hidden">
+      <div class="flex flex-col flex-1 overflow-hidden">
+        <div class="flex-1 overflow-hidden">
+          <div id="chatBox"
+               class="flex-1 h-full p-2 overflow-y-auto scrollbar-hide flex flex-col">
+          </div>
         </div>
+
+        <div id="feedback"
+             class="text-xs font-bold p-2 text-gray-600 dark:text-gray-300 invisible animate-blink"></div>
+
+        <form id="msgForm"
+              class="p-2 bg-white space-x-4 border-t flex items-center justify-between border-gray-200 dark:border-gray-700 dark:bg-gray-700 px-4">
+          <input class="flex-1 p-2 bg-white outline-none dark:bg-gray-700 rounded dark:text-gray-100"
+                 type="text" id="msgInput" placeholder="Type your message..." autocomplete="off" />
+          <button id="sendBtn"
+                  class="bg-blue-500 px-6 py-2 hover:bg-blue-600 rounded text-gray-100 disabled:bg-gray-600">
+            Send
+          </button>
+        </form>
       </div>
     </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js"></script>
-    <script>
-      const modeBtn = document.getElementById("modeBtn");
-      const sunIcon = document.getElementById("sunIcon");
-      const moonIcon = document.getElementById("moonIcon");
+  </div>
 
-      modeBtn.addEventListener("click", toggleMode);
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+  <script>
+    const modeBtn = document.getElementById("modeBtn");
+    const sunIcon = document.getElementById("sunIcon");
+    const moonIcon = document.getElementById("moonIcon");
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
 
-      function toggleMode() {
-        document.querySelector("html").classList.toggle("dark");
-        sunIcon.classList.toggle("hidden");
-        moonIcon.classList.toggle("hidden");
-      }
-    </script>
-  </body>
+    modeBtn.addEventListener("click", () => {
+      document.documentElement.classList.toggle("dark");
+      sunIcon.classList.toggle("hidden");
+      moonIcon.classList.toggle("hidden");
+    });
+
+    menuBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("-translate-x-full");
+    });
+  </script>
+</body>
 </html>
