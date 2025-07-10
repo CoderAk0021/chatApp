@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: aliceblue;
+}
+
+h1{
+    font-size: 40px;
+    margin: 10px;
+}
+.main{
+    box-shadow: 2px 2px 5px black;
+    width: 400px;
+    border-radius: 5px;
+}
+.main .header{
+    background-color: black;
+    padding:10px;
+}
+.main > .header > input{
+    font-size: 18px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: whitesmoke;
+}
+.chatBox{
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    list-style: none;
+}
+.messageLeft,.messageRight{
+    margin: 10px;
+    max-width:200px;
+    background-color: white;
+    padding: 10px;
+}
+
+.messageLeft{
+    box-shadow: -1px 1px 4px rgba(0, 0, 0,0.2);
+    border-radius: 15px 15px 15px 0px;
+    align-self: flex-start;
+}
+.messageRight{
+    box-shadow: 1px 1px 4px rgba(0, 0, 0,0.2);
+    border-radius:15px 15px 0px 15px;
+    align-self: flex-end;
+    background-color: black;
+    color: white;
+}
+.metaData{
+    font-size: 14px;
+    font-style: italic;
+    color: rgb(180, 180, 180);
+}
+.feedback{
+    align-self: center;
+    font-size: 14px;
+    margin:10px;
+    color: gray;
+}
+.messageForm{
+    display: flex;
+    justify-content: space-between;
+}
+.messageForm input{
+    height: 48px;
+    outline: none;
+    border: none;
+    flex-grow: 1;
+    font-size: 16px;
+    padding:0 15px;
+}
+.messageForm button{
+    padding: 0px 15px;
+    font-size: 16px;
+    border: none;
+    background-color: black;
+    color: gray;
+}
+.totalClients{
+    margin: 15px 0;
+}
