@@ -203,12 +203,6 @@ socket.on('typing_stop',(name)=>{
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  initializeThemeIcon();
   checkConnection();
 });
 
-function initializeThemeIcon() {
-  const isDark = document.documentElement.classList.contains("dark");
-  sunIcon.classList.toggle("hidden", !isDark);
-  moonIcon.classList.toggle("hidden", isDark);
-}

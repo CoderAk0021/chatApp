@@ -34,14 +34,15 @@
   </script>
   <title>Chat App</title>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300 ">
   <!-- Mobile Header -->
+  <div class="flex flex-col h-screen">
   <div class="md:hidden flex justify-between items-center p-4 bg-white dark:bg-gray-800 shadow">
     <button id="menuBtn" class="p-2 bg-gray-100 dark:bg-gray-700 rounded">
       ☰
     </button>
     <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100">Chat App</h2>
-    <button id="modeBtn" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-full">
+    <button id="modeBtn" onclick="toggleMode(this)" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-full">
       <svg id="sunIcon" class="w-5 h-5 text-gray-800 dark:text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
@@ -53,7 +54,7 @@
     </button>
   </div>
 
-  <div class="h-screen flex flex-col md:flex-row overflow-hidden">
+  <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
     <!-- Sidebar -->
     <div id="sidebar"
          class="w-full md:w-64 bg-white dark:bg-gray-800 shadow-lg flex flex-col transform md:translate-x-0 transition-transform duration-300 md:relative absolute z-10 -translate-x-full md:translate-x-0">
@@ -62,6 +63,17 @@
           <h2 class="font-bold text-xl text-gray-900 dark:text-gray-100">Chat App</h2>
           <p id="yourId" class="text-sm mt-3 font-bold text-gray-900 dark:text-gray-500">Your ID : UserAi53456</p>
         </div>
+
+        <button onclick="toggleMode(this)" id="modeBtn" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-full hidden md:block">
+      <svg id="sunIcon" class="w-5 h-5 text-gray-800 dark:text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+      </svg>
+      <svg id="moonIcon" class="w-5 h-5 text-gray-800 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </button>
       </header>
 
       <div class="p-2 flex-1 overflow-y-auto">
@@ -100,21 +112,20 @@
       </div>
     </div>
   </div>
-
+  </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
   <script>
-    const modeBtn = document.getElementById("modeBtn");
-    const sunIcon = document.getElementById("sunIcon");
-    const moonIcon = document.getElementById("moonIcon");
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
 
-    modeBtn.addEventListener("click", () => {
+    function toggleMode(e) {
+      const sunIcon = e.querySelector("#sunIcon")
+      const moonIcon = e.querySelector("#moonIcon")
       document.documentElement.classList.toggle("dark");
       sunIcon.classList.toggle("hidden");
       moonIcon.classList.toggle("hidden");
-    });
+    };
 
     menuBtn.addEventListener("click", () => {
       sidebar.classList.toggle("-translate-x-full");
